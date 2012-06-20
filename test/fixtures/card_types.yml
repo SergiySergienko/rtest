@@ -1,0 +1,12 @@
+spades:
+ id: 1
+ name: spades
+hearts:
+ id: 2
+ name: hearts
+diamonds:
+ id: 3
+ name: diamonds
+clubs:
+ id: 4
+ name: clubs

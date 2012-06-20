@@ -1,0 +1,192 @@
+six:
+ id: 1
+ name: six
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Playing_card_spade_6.svg/40px-Playing_card_spade_6.svg.png
+ card_type_id: 1
+ card_weight: 1
+seven:
+ id: 2
+ name: seven
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Playing_card_spade_7.svg/40px-Playing_card_spade_7.svg.png
+ card_type_id: 1
+ card_weight: 2
+eight:
+ id: 3
+ name: eight
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Playing_card_spade_8.svg/40px-Playing_card_spade_8.svg.png
+ card_type_id: 1
+ card_weight: 3
+nine:
+ id: 4
+ name: nine
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Playing_card_spade_9.svg/40px-Playing_card_spade_9.svg.png
+ card_type_id: 1
+ card_weight: 4
+ten:
+ id: 5
+ name: ten
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Playing_card_spade_10.svg/40px-Playing_card_spade_10.svg.png
+ card_type_id: 1
+ card_weight: 5
+jack:
+ id: 6
+ name: jack
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Playing_card_spade_J.svg/40px-Playing_card_spade_J.svg.png
+ card_type_id: 1
+ card_weight: 6
+queen:
+ id: 7
+ name: queen
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Playing_card_spade_Q.svg/40px-Playing_card_spade_Q.svg.png
+ card_type_id: 1
+ card_weight: 7
+king:
+ id: 8
+ name: king
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Playing_card_spade_K.svg/40px-Playing_card_spade_K.svg.png
+ card_type_id: 1
+ card_weight: 8
+ace:
+ id: 9
+ name: Ace of spades
+ image: http://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Playing_card_spade_A.svg/40px-Playing_card_spade_A.svg.png
+ card_type_id: 1
+ card_weight: 9
+
+six_2:
+ id: 10
+ name: six
+ card_type_id: 2
+ card_weight: 1
+seven_2:
+ id: 11
+ name: seven
+ card_type_id: 2
+ card_weight: 2
+eight_2:
+ id: 12
+ name: eight
+ card_type_id: 2
+ card_weight: 3
+nine_2:
+ id: 13
+ name: nine
+ card_type_id: 2
+ card_weight: 4
+ten_2:
+ id: 14
+ name: ten
+ card_type_id: 2
+ card_weight: 5
+jack_2:
+ id: 15
+ name: jack
+ card_type_id: 2
+ card_weight: 6
+queen_2:
+ id: 16
+ name: queen
+ card_type_id: 2
+ card_weight: 7
+king_2:
+ id: 17
+ name: king
+ card_type_id: 2
+ card_weight: 8
+ace_2:
+ id: 18
+ name: ace
+ card_type_id: 2
+ card_weight: 9
+
+six_3:
+ id: 19
+ name: six
+ card_type_id: 3
+ card_weight: 1
+seven_3:
+ id: 20
+ name: seven
+ card_type_id: 3
+ card_weight: 2
+eight_3:
+ id: 21
+ name: eight
+ card_type_id: 3
+ card_weight: 3
+nine_3:
+ id: 22
+ name: nine
+ card_type_id: 3
+ card_weight: 4
+ten_3:
+ id: 23
+ name: ten
+ card_type_id: 3
+ card_weight: 5
+jack_3:
+ id: 24
+ name: jack
+ card_type_id: 3
+ card_weight: 6
+queen_3:
+ id: 25
+ name: queen
+ card_type_id: 3
+ card_weight: 7
+king_3:
+ id: 26
+ name: king
+ card_type_id: 3
+ card_weight: 8
+ace_3:
+ id: 27
+ name: ace
+ card_type_id: 3
+ card_weight: 9
+
+six_4:
+ id: 28
+ name: six
+ card_type_id: 4
+ card_weight: 1
+seven_4:
+ id: 29
+ name: seven
+ card_type_id: 4
+ card_weight: 2
+eight_4:
+ id: 30
+ name: eight
+ card_type_id: 4
+ card_weight: 3
+nine_4:
+ id: 31
+ name: nine
+ card_type_id: 4
+ card_weight: 4
+ten_4:
+ id: 32
+ name: ten
+ card_type_id: 4
+ card_weight: 5
+jack_4:
+ id: 33
+ name: jack
+ card_type_id: 4
+ card_weight: 6
+queen_4:
+ id: 34
+ name: queen
+ card_type_id: 4
+ card_weight: 7
+king_4:
+ id: 35
+ name: king
+ card_type_id: 4
+ card_weight: 8
+ace_4:
+ id: 36
+ name: ace
+ card_type_id: 4
+ card_weight: 9

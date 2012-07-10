@@ -1,6 +1,15 @@
 
 class MainController < ApplicationController
 
+  def test
+	require 'game_core.rb'
+	core = GameCore::get_core	
+	puts '----------------------------'
+	puts core.current_session.inspect
+	puts '----------------------------'
+	return
+  end
+
   def index
 
     Card::start_game

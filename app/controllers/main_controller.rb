@@ -1,31 +1,60 @@
 
 class MainController < ApplicationController
 
+
   def test
-	require 'game_core.rb'
-	core = GameCore::get_core	
-	puts '----------------------------'
-	puts core.current_session.inspect
-	puts '----------------------------'
-	return
+    require 'game_core.rb'
+    core = GameCore::get_core
+    puts '----------------------------'
+    puts core.current_session.inspect
+    puts '----------------------------'
+    #return
+  end
+
+  def start
+    Card::start_game
+    Card::give_cards_set
+    Card::get_player_cards(1)
+    Card::get_player_cards(2)
+    Card::get_trump_card
+    redirect_to :action => :index
   end
 
   def index
 
-    Card::start_game
     @cards_set = Card::give_cards_set
     @cards = Card::get_player_cards(1)
     @second_player_cards = Card::get_player_cards(2)
     @trump_card = Card::get_trump_card
-
     @cards_on_table = Card::get_cards_on_table
 
+    @player = Card::get_next_player
+    puts "!!"*30
+    puts @player.inspect
+    puts "!!"*30
+    if @player == 1
+      if not @cards_on_table.empty?
+        if Card::player_has_cards_to_add?(@player)
+          redirect_to :action => :next_player_move
+        else
+          redirect_to :action => :make_clear
+        end
+      end
+    end
+
+  end
+
+  def sort_cards
     if @cards_on_table.empty?
       Card::sort_player_cards(1)
       Card::sort_player_cards(2)
-      Card::push_card_on_table(1)
     end
-    @cards_on_table = Card::get_cards_on_table
+  end
+
+  def next_player_move
+    player = Card::get_next_player
+    Card::push_card_on_table(player)
+    redirect_to :action => :index
   end
 
   def do_answer

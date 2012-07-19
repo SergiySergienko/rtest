@@ -10,6 +10,14 @@ class Card < ActiveRecord::Base
   @@played_games = 0
   @@stock = []
   @@step = 'game'
+  @@end_of_move = FALSE
+
+  def self.set_end_on_move(val)
+    @@end_of_move = val
+  end
+  def self.get_end_on_move
+    @@end_of_move
+  end
 
   def self.start_game
     if @@game_is_started == FALSE
@@ -19,6 +27,28 @@ class Card < ActiveRecord::Base
       self::get_trump_card
       @@game_is_started = TRUE
     end
+  end
+
+  def self::player_has_cards_to_add?(player)
+    result = FALSE
+    if not self::get_player_card_to_add(player).empty?
+      result = TRUE
+    end
+    return result
+  end
+
+  def self::get_player_card_to_add(player)
+    result = []
+    if not @@player_cards[player].empty? and not @@cards_on_table.empty?
+      @@cards_on_table.each_with_index do |val, key|
+        @@player_cards[player].each_with_index do |v, k|
+          if v.card_weight == val['card'].card_weight
+            result << {'pcards_key' => k, 'pcards_card' => v}
+          end
+        end
+      end
+    end
+    return result
   end
 
   def self.game_is_started?
@@ -68,6 +98,22 @@ class Card < ActiveRecord::Base
     end
   end
 
+  def self::get_next_player
+    if not @@stock.empty?
+      puts "--"*20
+      puts @@stock.last
+      puts "--"*20
+    end
+    if not @@cards_on_table.empty?
+      if @@cards_on_table.last['player'].to_int == 1
+        return 2
+      end
+    elsif not @@stock.empty? and not @@stock.last.nil? and @@stock.last['player'].to_int == 2
+      return 2
+    end
+    return 1
+  end
+
   def self.push_card_on_table(player, card_id=nil)
     player_cards = self::get_player_cards(player)
     if @@cards_on_table.empty?
@@ -81,6 +127,12 @@ class Card < ActiveRecord::Base
             player_cards.delete_at(ind)
           end
         end
+      else
+        if self::player_has_cards_to_add?(player)
+          card = self::get_player_card_to_add(player).first
+          @@cards_on_table << { 'player' => player, 'card' => player_cards[card['pcards_key']] }
+          player_cards.delete_at(card['pcards_key'])
+        end
       end
     end
     @@player_cards[player] = player_cards
@@ -88,7 +140,10 @@ class Card < ActiveRecord::Base
 
   def self.make_clear
     @@step = 'clear'
-    @@stock << @@cards_on_table
+    @@cards_on_table.each do |c|
+      @@stock.push(c)
+    end
+    #@@stock << @@cards_on_table
     @@cards_on_table = []
     self::get_player_cards(1)
     self::get_player_cards(2)
@@ -102,7 +157,7 @@ class Card < ActiveRecord::Base
     end
     @@cards_on_table = []
     self::sort_player_cards(player)
-    player = player == 1 ? 2 : 1
+    player = (player == 1 ? 2 : 1)
     self::get_player_cards(player)
     self::sort_player_cards(player)
     @@step= 'game'

@@ -3,8 +3,10 @@
 <% end %>
 <hr />
 <% @second_player_cards.each do |c| %>
-    <% if @cards_on_table.last['player'] == 1 and c.can_kick_card?(@cards_on_table.last['card']) %>
-        <%= link_to c.name, :controller => :main, :action => :do_answer, :card_id => c.id, :player_id => 2 %>
+    <% if @player.to_int == 2 %>
+        <% if (@cards_on_table.empty?) or (not @cards_on_table.last.nil? and c.can_kick_card?(@cards_on_table.last['card'])) %>
+            <%= link_to c.name, :controller => :main, :action => :do_answer, :card_id => c.id, :player_id => 2 %>
+        <% end %>
     <% else %>
         <%= c.name %>
     <% end %>
@@ -25,3 +27,4 @@ Set (<%= @cards_set.length %>):<br />
 
 <%= link_to "Make clear", :controller => :main, :action => :make_clear %>
 <%= link_to "Make mine", :controller => :main, :action => :make_mine %>
+<%= link_to "Make move", :controller => :main, :action => :next_player_move %>

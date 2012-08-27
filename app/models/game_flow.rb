@@ -1,33 +1,52 @@
 class GameFlow
 
-	attr_accesible :core
+  attr_accessor :core
 
 	def initialize
 		self.core = GameCore.new
 	end
 
 	def make_action(params)
-
-		# 1-st step is give_cards
-		# 2-nd step is select_player
-		# 3-rd step is choose_card
-		# 4-th step is pust_card_on_table
-
+    puts "*"*50
+    puts params.inspect
+    puts "*"*50
 		player = self.core.get_current_player		
 		card = false
 
-		if player.user_is_answering?(player) # Step 2
-			card = player.choose_card_to_answer(self.core.cards_on_table) # Step 3
-		else
-			card = player.choose_card_to_push # Step 3
-		end
-		
-		if card == false
-			# player havn't cards to answer			
-			player.make_mine(self.core.cards_on_table) # Step 4
-		else
-			# Player starting new session
-			player.push_card_on_table(card) # Step 4
+		if player.user_is_answering?(player)
+
+      # Player is answering
+
+      card = player.choose_card_to_answer(self.core.cards_on_table)
+      if card == false
+        # player havn't cards to answer
+        player.make_mine(self.core.cards_on_table)
+      else
+        player.push_card_on_table(card)
+      end
+
+    else
+
+      # Starts new session
+
+      if player.get_player_cards.length < 6
+        # Check if count of players cards < 6
+        player.pick_cards_from_set(core.cards_set)
+        core.get_next_player.pick_cards_from_set(core.cards_set)
+      end
+
+      card = player.choose_card_to_start
+      if card == false
+        # !!! This player win !!!
+        puts "!!"*50
+        puts player.player_name
+        puts "!!! WIN !!!"
+        puts "!!"*50
+      else
+        player.push_card_on_table(card)
+        player.set_current_player(core.get_next_player)
+      end
+
 		end
 
 	end

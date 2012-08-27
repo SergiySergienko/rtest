@@ -1,6 +1,6 @@
 class PlayerBase
 
-	attr_accessible :player_id, :player_name, :player_cards
+  attr_accessor :player_id, :player_name, :player_cards
 
 	def initialize(player_name)
 		self.player_name = player_name
@@ -10,9 +10,14 @@ class PlayerBase
 	end
 
 	def pick_cards_from_set(cards_set)
-	end
+  end
 
-	def choose_card_to_push
+  def get_player_cards
+    return self.player_cards
+  end
+
+	def choose_card_to_start
+    return false
 	end
 
 	def choose_card_to_answer(cards_on_table)

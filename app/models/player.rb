@@ -1,0 +1,5 @@
+class Player < PlayerBase
+
+	
+
+end

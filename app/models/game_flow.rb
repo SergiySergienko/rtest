@@ -10,7 +10,14 @@ class GameFlow
     puts "*"*50
     puts params.inspect
     puts "*"*50
-		player = self.core.get_current_player		
+
+    if not params.nil?
+      self.core.set_params(params)
+    else
+      self.core.set_params(nil)
+    end
+
+		player = self.core.get_current_player
 		card = false
 
 		if player.user_is_answering?(player)
@@ -44,7 +51,7 @@ class GameFlow
         puts "!!"*50
       else
         player.push_card_on_table(card)
-        player.set_current_player(core.get_next_player)
+        self.core.set_current_player(core.get_next_player)
       end
 
 		end

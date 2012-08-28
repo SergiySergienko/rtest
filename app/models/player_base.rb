@@ -25,7 +25,7 @@ class PlayerBase
 
 	def user_is_answering?(current_player)
 		result = false
-		if self.player_id == current_player.player_id
+		if self.player_name == current_player.player_name
 			result = true
 		end
 		return result

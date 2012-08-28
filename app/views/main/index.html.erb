@@ -1,0 +1,6 @@
+Current player: <%= @current_player.player_name %><br />
+Cards on table: 
+<% @cards_on_table.each do |card| %>
+	<%= card.name %> (<%= card.card_type.name %>)
+<% end %>
+

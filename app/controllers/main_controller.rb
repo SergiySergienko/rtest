@@ -4,10 +4,13 @@ class MainController < ApplicationController
 	before_filter :init
 
   def asd    
-    a = $game_flow
-    puts "!"*50
+    a = [1,2,3 ]
+    b = [1,4,5]
+    a = a | b
+    puts "*"*50
     puts a.inspect
-    a.make_action(params)
+    puts "*"*50
+    return
   end
 
   def index
@@ -17,6 +20,7 @@ class MainController < ApplicationController
   	@cards_on_table = game.core.cards_on_table
   	@players = game.core.players
   	@cards_set = game.core.cards_set
+  	@trump_card = game.core.get_trump_card
   	@current_player = game.core.get_current_player
   	@first_player_cards = game.core.players.first.get_player_cards
   	@second_player_cards = game.core.players.last.get_player_cards

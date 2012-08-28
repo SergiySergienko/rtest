@@ -1,6 +1,36 @@
 Current player: <%= @current_player.player_name %><br />
+Trump card: <%= @trump_card.name %> (<%= @trump_card.card_type.name %>)<br />
+<hr />
+Cards on set (<%= @cards_set.length %>): 
+<% @cards_set.each do |card| %>
+	<%= card.name %> (<%= card.card_type.name %>), 
+<% end %>
+<hr />
 Cards on table: 
 <% @cards_on_table.each do |card| %>
 	<%= card.name %> (<%= card.card_type.name %>)
 <% end %>
+
+<br /><br />
+<hr />
+<br /><br />
+
+<table border=1>
+	<tr>
+		<td>First player cards (<%= @first_player_cards.length %>)</td>
+		<td>Second player cards(<%= @second_player_cards.length %>)</td>
+	</tr>
+	<tr>
+		<td width="50%">
+			<% @first_player_cards.each do |card| %>
+				<%= card.name %> (<%= card.card_type.name %>)
+			<% end %>
+		</td>
+		<td width="50%">
+			<% @second_player_cards.each do |card| %>
+				<%= card.name %> (<%= card.card_type.name %>)
+			<% end %>
+		</td>
+	</tr>
+</table>
 

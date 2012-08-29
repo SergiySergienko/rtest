@@ -55,20 +55,20 @@ class GameCore
   #TODO: This function call recursion when cards_set length < 6
   def fill_player_cards(player)
   	p_cards = []
-  	if self.cards_set.length == 1
-  		p_cards << self.cards_set.first
-  		self.cards_set.delete_at(0)
-  	elsif self.cards_set.length > 1
+    
+  	if self.cards_set.length > 0
   		p_cards = player.get_player_cards
-	  	while ((p_cards.length < 6) or (self.cards_set.length == 0)) do
-	      card_from_set = rand(self.cards_set.length)
+	  	while ((p_cards.length < 6) and (self.cards_set.length > 0)) do
+	      card_from_set = rand(self.cards_set.length-1)
 	      p_cards << self.cards_set[card_from_set]
 	      self.cards_set.delete_at(card_from_set)
 	    end
   	end
+
   	tmp = player.player_cards | p_cards
   	player.player_cards = tmp
   	self.sort_player_cards(player)
+
   	return player.player_cards
   end
 

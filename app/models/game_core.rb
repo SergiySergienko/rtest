@@ -1,4 +1,7 @@
+require 'observer'
 class GameCore
+  
+  include Observable
 
   attr_accessor :session_player, :current_player, :players, :game_is_started, :cards_on_table, :cards_set, :input_params, :trump_card
 
@@ -17,6 +20,7 @@ class GameCore
 			#self.sort_player_cards(player1)
 
 			player2 = Player.new('Player2')
+      self.add_observer(player2)
 			self.fill_player_cards(player2)
 			#self.sort_player_cards(player2)
 
@@ -26,10 +30,24 @@ class GameCore
 			self.set_current_player(player1)
 			# TODO: fill cards_set and select trumph card
 		end
+    send_update
 	end
+
+  # def self.method_missing(meth, *args)
+  #   puts "+"*50
+  #   puts "Was called " + meth.to_s + " method"
+  #   puts "+"*50
+  #   if self.players.length > 0
+  #     self.players.each_index do |indx|
+  #       self.players[indx].core = self
+  #     end
+  #   end    
+  #   super
+  # end
 
 	def start_game
 		self.game_is_started = true
+    send_update
   end
 
   def get_trump_card
@@ -38,6 +56,7 @@ class GameCore
       self.trump_card = self.cards_set[trump_index]
       self.cards_set.delete_at(trump_index)
     end    
+    send_update
     return self.trump_card
   end
 
@@ -51,6 +70,7 @@ class GameCore
       end
     end
     player.player_cards = p_cards
+    send_update
   end
 
   #TODO: This function call recursion when cards_set length < 6
@@ -69,7 +89,7 @@ class GameCore
   	tmp = player.player_cards | p_cards
   	player.player_cards = tmp
   	self.sort_player_cards(player)
-
+    send_update
   	return player.player_cards
   end
 
@@ -80,6 +100,7 @@ class GameCore
   		p_cards.delete_at(key)
   		player.player_cards = p_cards
 		end
+    send_update
 		return self.cards_on_table
   end
 
@@ -92,11 +113,13 @@ class GameCore
   			result = self.players.first
   		end
   	end
+    send_update
   	return result
   end
 
 	def set_current_player(player)
 		self.current_player = player
+    send_update
 	end
 
 	def get_current_player
@@ -105,6 +128,7 @@ class GameCore
 
 	def set_session_player(player)
 		self.session_player = player
+    send_update
 	end
 
 	def get_session_player
@@ -113,6 +137,7 @@ class GameCore
 
 	def set_params(params)
 		self.input_params = params
+    send_update
 	end
 
 	def get_params
@@ -121,10 +146,19 @@ class GameCore
 
 	def make_clear
 		self.cards_on_table = []
+    send_update
 	end
 
 	def end_game
 		self.game_is_started = false
+    send_update
 	end
+
+private
+
+  def send_update
+    changed
+    notify_observers(self)
+  end
 
 end

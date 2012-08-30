@@ -1,14 +1,15 @@
 class PlayerBase
 
-  attr_accessor :player_id, :player_name, :player_cards
+  attr_accessor :player_id, :player_name, :player_cards, :core
 
 	def initialize(player_name)
 		self.player_name = player_name
 		self.player_cards = []
 	end
 
-	def pick_cards_from_set(cards_set)
-  end
+	def update(data)
+		self.core = data
+	end
 
   def get_player_cards
   	result = []

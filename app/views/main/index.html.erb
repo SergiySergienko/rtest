@@ -28,7 +28,7 @@ Cards on table:
 		</td>
 		<td width="50%">
 			<% @second_player_cards.each do |card| %>
-				<%= card.name %> (<%= card.card_type.name %>)
+				<%= link_to(card.name, :controller => :main, :action => :index, :id => card.id, :op => 'push_card') %> (<%= card.card_type.name %>)
 			<% end %>
 		</td>
 	</tr>

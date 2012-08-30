@@ -8,7 +8,8 @@ class GameCore
       
       self.players = []
       self.cards_on_table = []
-      self.cards_set = Card.find(:all)
+      self.cards_set = Card.find(:all).shuffle!
+      self.cards_set.shuffle!
       self.get_trump_card
 
 			player1 = AiPlayer.new('Player1')

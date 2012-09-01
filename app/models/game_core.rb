@@ -11,7 +11,7 @@ class GameCore
       
       self.players = []
       self.cards_on_table = []
-      self.cards_set = Card.find(:all).shuffle!
+      self.cards_set = Card.find(:all)
       self.cards_set.shuffle!
       self.get_trump_card
 
@@ -32,6 +32,8 @@ class GameCore
 		end
     send_update
 	end
+
+# TODO make observer call after each method call
 
   # def self.method_missing(meth, *args)
   #   puts "+"*50
@@ -73,7 +75,6 @@ class GameCore
     send_update
   end
 
-  #TODO: This function call recursion when cards_set length < 6
   def fill_player_cards(player)
   	p_cards = []
     

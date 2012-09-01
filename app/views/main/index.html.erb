@@ -1,3 +1,4 @@
+Session player: <%= @session_player.player_name %><br />
 Current player: <%= @current_player.player_name %><br />
 Trump card: <%= @trump_card.name %> (<%= @trump_card.card_type.name %>)<br />
 <hr />
@@ -27,9 +28,16 @@ Cards on table:
 			<% end %>
 		</td>
 		<td width="50%">
+			<% puts "!"*200 %>
+			<% puts @second_player_cards.inspect %>
 			<% @second_player_cards.each do |card| %>
-				<%= link_to(card.name, :controller => :main, :action => :index, :id => card.id, :op => 'push_card') %> (<%= card.card_type.name %>)
+				<%= link_to(card.name, :controller => :main, :action => :index, :cid => card.id, :op => 'push_card') %> (<%= card.card_type.name %>)
 			<% end %>
+		
+		<br /><br />
+		<%= link_to("Make mine", :action => :index, :op => :mine) %>
+		<br />
+		<%= link_to("Make clear", :action => :index, :op => :clear) %>
 		</td>
 	</tr>
 </table>

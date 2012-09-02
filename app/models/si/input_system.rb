@@ -28,29 +28,54 @@ class Si::InputSystem
 	def push_card
 		result = {:result => false, :error_text => 'Unknown operation'}
 		if (not self.input_params[:cid].nil?)
-			p_cards = self.player.get_player_cards
-			last_card = self.core.cards_on_table.last
-			if p_cards.length > 0
-				selected_card = false
-				p_cards.each do |card|
-					if card.id.to_s == self.input_params[:cid]
-						selected_card = card
+			
+			if (self.action == 'choose_card_to_answer') or (self.action == 'choose_card_to_start')
+
+				p_cards = self.player.get_player_cards
+				last_card = self.core.cards_on_table.last
+				if p_cards.length > 0
+					selected_card = false
+					p_cards.each do |card|
+						if card.id.to_s == self.input_params[:cid]
+							selected_card = card
+						end
 					end
+					
+					if last_card.nil?
+						# start new session
+						if selected_card
+							result = selected_card
+						end
+					else
+						# answering					
+						if selected_card and validate_card_kick(last_card, selected_card)
+							result = selected_card
+						end
+					end
+
 				end
+			
+			elsif self.action == 'choose_card_to_add'
 				
-				if last_card.nil?
-					# start new session
-					if selected_card
-						result = selected_card
+				p_cards = self.player.get_player_cards
+				
+				if p_cards.length > 0
+					
+					selected_card = false
+					p_cards.each do |card|
+						if card.id.to_s == self.input_params[:cid]
+							selected_card = card
+						end
 					end
-				else
-					# answering					
-					if selected_card and validate_card_kick(last_card, selected_card)
+
+					if selected_card and validate_card_add(self.core.cards_on_table, selected_card)
 						result = selected_card
-					end
+					end					
+
 				end
 
 			end
+
 		end
 		return result
 	end
@@ -87,6 +112,20 @@ private
 		end
 
 		return result
+	end
+
+	def validate_card_add(cards_on_table, selected_card)
+		
+		result = false
+		
+		cards_on_table.each do |card|
+			if selected_card.card_weight == card.card_weight
+				result = true
+			end
+		end
+
+		return result
+
 	end
 
 end

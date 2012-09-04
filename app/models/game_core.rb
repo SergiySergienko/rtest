@@ -3,7 +3,7 @@ class GameCore
   
   include Observable
 
-  attr_accessor :session_player, :current_player, :players, :game_is_started, :cards_on_table, :cards_set, :input_params, :trump_card
+  attr_accessor :session_player, :current_player, :players, :game_is_started, :cards_on_table, :cards_set, :input_params, :trump_card, :release
 
 	def initialize
 		self.start_game
@@ -11,6 +11,7 @@ class GameCore
       
       self.players = []
       self.cards_on_table = []
+      self.release = []
       self.cards_set = Card.find(:all)
       self.cards_set.shuffle!
       self.get_trump_card

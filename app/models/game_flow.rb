@@ -12,7 +12,7 @@ class GameFlow
 
     if not params.nil?
       self.core.set_params(params)
-      if not params[:cid].nil?
+      if (not params[:op].nil?)
         redirect_result = { :action => :index }
       end
     else
@@ -42,7 +42,12 @@ class GameFlow
         puts "*"*100
 
         player.make_mine(self.core.cards_on_table)
+        self.core.sort_player_cards(player)
         self.core.cards_on_table = []
+        
+        # run redirect
+        redirect_result = { :action => :index }
+        
 
       elsif (card.is_a?(Hash))
         
@@ -112,6 +117,17 @@ class GameFlow
         if card == false or (card.is_a?(Hash) and card[:result] == true and card[:op] == 'clear')
           # user havnt card to add 
           # make clear
+          
+          puts "!!*"*50
+          puts player.player_name + " make clear"          
+          puts "!!*"*50
+
+          if not self.core.release.empty?
+            tmp = self.core.release | self.core.cards_on_table
+            self.core.release = tmp
+          else
+            self.core.release = self.core.cards_on_table
+          end
           self.core.cards_on_table = []
           self.core.set_current_player(self.core.get_next_player(self.core.get_current_player))
           self.core.set_session_player(self.core.get_current_player)

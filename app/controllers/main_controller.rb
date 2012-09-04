@@ -18,6 +18,7 @@ class MainController < ApplicationController
     res = game.make_action(params)
     # Get current state of game
   	@cards_on_table = game.core.cards_on_table
+    @release = game.core.release
   	@players = game.core.players
   	@cards_set = game.core.cards_set
   	@trump_card = game.core.get_trump_card

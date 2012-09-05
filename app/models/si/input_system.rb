@@ -19,9 +19,6 @@ class Si::InputSystem
 		if (not self.input_params.nil?) and (not self.input_params[:op].nil?) and (not self.player.nil?)
 			result = self.send(self.input_params[:op].to_s)
 		end
-		puts "*"*180
-		puts result.inspect
-		puts "*"*180
 		return result
 	end
 

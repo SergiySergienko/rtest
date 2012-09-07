@@ -4,8 +4,11 @@ class GameCore
   include Observable
 
   attr_accessor :session_player, :current_player, :players, :game_is_started, :cards_on_table, :cards_set, :input_params, :trump_card, :release
-
-	def initialize
+	
+  #
+  # class constructor
+  #
+  def initialize
 		self.start_game
 		if self.players.nil?
       
@@ -48,11 +51,17 @@ class GameCore
   #   super
   # end
 
-	def start_game
+	#
+  # Implements game start action
+  #
+  def start_game
 		self.game_is_started = true
     send_update
   end
 
+  #
+  # Select new or return exist trump card
+  #
   def get_trump_card
     if self.trump_card.nil?
       trump_index = rand(self.cards_set.length)
@@ -63,6 +72,9 @@ class GameCore
     return self.trump_card
   end
 
+  #
+  # This function sort player's cards
+  #
   def sort_player_cards(player)
     p_cards = player.get_player_cards
     p_cards.sort! { |a,b| a.card_weight <=> b.card_weight }
@@ -76,6 +88,9 @@ class GameCore
     send_update
   end
 
+  #
+  # This function add cards to player's set
+  #
   def fill_player_cards(player)
   	p_cards = []
     
@@ -95,6 +110,9 @@ class GameCore
   	return player.player_cards
   end
 
+  #
+  # This function pushing selected card on table
+  #
   def push_card_on_table(player, card)
   	p_cards = player.get_player_cards
   	if key = p_cards.index(card)
@@ -106,6 +124,9 @@ class GameCore
 		return self.cards_on_table
   end
 
+  #
+  # This function return next player
+  #
   def get_next_player(player)
   	result = player
   	if (not self.players.nil?) and (not self.players.empty?)
@@ -119,12 +140,15 @@ class GameCore
   	return result
   end
 
-	def set_current_player(player)
+	#
+  # This function set player frim params as current
+  #
+  def set_current_player(player)
 		self.current_player = player
     send_update
 	end
-
-	def get_current_player
+	
+  def get_current_player
 		return self.current_player
 	end
 
@@ -158,6 +182,9 @@ class GameCore
 
 private
 
+  #
+  # Part of observer pattert, notify observer classes about observable update  
+  #
   def send_update
     changed
     notify_observers(self)

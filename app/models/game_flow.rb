@@ -37,9 +37,9 @@ class GameFlow
 
         if not winner == false
           self.core.end_game
-          puts "*"*150
+          puts "*"*50
           puts winner.player_name + " !!!!!!!!!!!WIN!!!!!!!!!"
-          puts "*"*150
+          puts "*"*50
           return
         end
 
@@ -47,10 +47,10 @@ class GameFlow
 
   		if player.user_is_answering?(session_player)
 
-        puts "*"*100
+        puts "*"*50
         puts player.player_name
         puts " is answering"
-        puts "*"*100
+        puts "*"*50
 
         # Player is answering
 
@@ -58,10 +58,10 @@ class GameFlow
         if card == false or (card.is_a?(Hash) and card[:result] == true and card[:op] == 'mine')
           # player haven't cards to answer
           
-          puts "*"*100
+          puts "*"*50
           puts player.player_name
           puts " have no cards to asnwer"
-          puts "*"*100
+          puts "*"*50
 
           player.make_mine(self.core.cards_on_table)
           self.core.sort_player_cards(player)
@@ -71,12 +71,7 @@ class GameFlow
           redirect_result = { :action => :index }
           
 
-        elsif (card.is_a?(Hash))
-          
-          puts "!!*"*50
-          puts "!!!!!!!!!!!!!!! ERRRRORRRRRR!!!!!!!!!!!!!!!!"
-          puts card.inspect
-          puts "!!*"*50
+        elsif (card.is_a?(Hash))          
 
           return redirect_result
 
@@ -90,10 +85,10 @@ class GameFlow
 
         if self.core.cards_on_table.empty? # If there is no cards on table than start new session
           
-          puts "*"*100
+          puts "*"*50
           puts player.player_name
           puts " start new session"
-          puts "*"*100
+          puts "*"*50
 
           # Starts new session
 
@@ -109,18 +104,13 @@ class GameFlow
           if card == false
             self.core.end_game
             # !!! This player win !!!
-            puts "!!"*50
+            puts "*"*50
             puts player.player_name
             puts "!!! WIN !!!"
-            puts "!!"*50
+            puts "*"*50
 
           
-          elsif (card.is_a?(Hash))
-
-            puts "!!*"*50
-            puts "!!!!!!!!!!!!!!! ERRRRORRRRRR!!!!!!!!!!!!!!!!"
-            puts card.inspect
-            puts "!!*"*50
+          elsif (card.is_a?(Hash))            
 
             return redirect_result
 
@@ -131,10 +121,10 @@ class GameFlow
 
         else # if have cards on table than choose card to add
 
-          puts "*"*100
+          puts "*"*50
           puts player.player_name
           puts " add card"
-          puts "*"*100
+          puts "*"*50
 
           card = player.choose_card_to_add(self.core.cards_on_table)
           
@@ -144,9 +134,9 @@ class GameFlow
             # user havnt card to add 
             # make clear
             
-            puts "!!*"*50
+            puts "*"*50
             puts player.player_name + " make clear"          
-            puts "!!*"*50
+            puts "*"*50
 
             if not self.core.release.empty?
               tmp = self.core.release | self.core.cards_on_table
@@ -162,12 +152,7 @@ class GameFlow
             redirect_result = { :action => :index }
             return redirect_result
           
-          elsif (card.is_a?(Hash))
-
-            puts "!!*"*50
-            puts "!!!!!!!!!!!!!!! ERRRRORRRRRR!!!!!!!!!!!!!!!!"
-            puts card.inspect
-            puts "!!*"*50
+          elsif (card.is_a?(Hash))            
 
             return redirect_result
 
@@ -181,9 +166,9 @@ class GameFlow
   		end
     else
 
-      puts "*"*150
+      puts "*"*50
       puts player.player_name + " !!!!!!!!!!!WIN!!!!!!!!!"
-      puts "*"*150
+      puts "*"*50
 
     end
 

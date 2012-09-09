@@ -1,17 +1,7 @@
 
 class MainController < ApplicationController
 
-	before_filter :init
-
-  def asd    
-    a = [1,2,3 ]
-    b = [1,4,5]
-    a = a | b
-    puts "*"*50
-    puts a.inspect
-    puts "*"*50
-    return
-  end
+	before_filter :init  
 
   def index
   	game = $game_flow
@@ -33,19 +23,7 @@ class MainController < ApplicationController
       puts "/"*150
       redirect_to res
     end
-  end
-
-  def make_mine
-    current_player = $game_flow.core.get_current_player
-    current_player.make_mine($game_flow.core.cards_on_table)
-    $game_flow.core.cards_on_table = []
-    redirect_to :action => :index
-  end
-
-  def dsa
-  	$game_flow.core.end_game
-  	redirect_to :action => :asd
-  end
+  end 
 
   private
 

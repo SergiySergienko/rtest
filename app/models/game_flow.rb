@@ -7,7 +7,7 @@ class GameFlow
 	end
 
 	def make_action(params)
-
+      
     redirect_result = true
 
     if not params.nil?

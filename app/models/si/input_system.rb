@@ -24,16 +24,18 @@ class Si::InputSystem
 
 	def push_card
 		result = {:result => false, :error_text => 'Unknown operation'}
+		
 		if (not self.input_params[:cid].nil?)
-			
+
 			if (self.action == 'choose_card_to_answer') or (self.action == 'choose_card_to_start')
 
 				p_cards = self.player.get_player_cards
 				last_card = self.core.cards_on_table.last
+
 				if p_cards.length > 0
 					selected_card = false
 					p_cards.each do |card|
-						if card.id.to_s == self.input_params[:cid]
+						if card.id.to_i == self.input_params[:cid].to_i
 							selected_card = card
 						end
 					end
@@ -50,7 +52,7 @@ class Si::InputSystem
 						end
 					end
 
-				end
+				end				
 			
 			elsif self.action == 'choose_card_to_add'
 				
@@ -60,7 +62,7 @@ class Si::InputSystem
 					
 					selected_card = false
 					p_cards.each do |card|
-						if card.id.to_s == self.input_params[:cid]
+						if card.id.to_i == self.input_params[:cid].to_i
 							selected_card = card
 						end
 					end
@@ -73,7 +75,7 @@ class Si::InputSystem
 
 			end
 
-		end
+		end		
 		return result
 	end
 

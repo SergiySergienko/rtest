@@ -11,6 +11,9 @@ Game::Application.initialize!
 
 require 'singleton'
 
+#
+# Emulate MainConrtoller using Singleton pattern
+#
 class GameController
   attr_accessor :cards_on_table, :release, :players, :cards_set, :trump_card, :current_player, :session_player, :first_player_cards, :second_player_cards, :game_flow
   include Singleton
@@ -20,6 +23,7 @@ class GameController
   end
 
   def make_action(params)
+    system("cls")
     res = self.game_flow.make_action(params)
     # Get current state of game
     self.cards_on_table = self.game_flow.core.cards_on_table
@@ -31,13 +35,6 @@ class GameController
     self.session_player = self.game_flow.core.get_session_player
     self.first_player_cards = self.game_flow.core.players.first.get_player_cards
     self.second_player_cards = self.game_flow.core.players.last.get_player_cards
-    # END Get current state of game
-    if res and res.is_a?(Hash)
-      puts "/"*150
-      puts self.cards_on_table.inspect
-      puts "/"*150
-      # redirect_to res
-    end
   end
 
 end
@@ -49,7 +46,7 @@ if GameController.instance.game_flow.core.game_is_started == true
   params = {:controller => :main, :action => :index}
   GameController.instance.make_action(params)
 
-  while GameController.instance.game_flow.core.game_is_started == true        
+  while GameController.instance.game_flow.core.game_is_started == true
     params = {:controller => :main, :action => :index}
 
     puts "Current player: " + GameController.instance.current_player.player_name
@@ -123,3 +120,7 @@ if GameController.instance.game_flow.core.game_is_started == true
 else
   puts "Game ended"
 end
+
+#
+# End game section
+#
